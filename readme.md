@@ -1,14 +1,6 @@
-```sh
-git clone https://github.com/lesssound/lesssound.github.io/
-git checkout hexo
-git submodule update
-yarn 
-hexo s
-#### udpate something
-hexo d -g
 
-git add dirs
-git commit -m  "write git log"
-git push origin hexo
-
-```
+### 我的笔记 包括且不限于
+ - [python](https://lesssound.github.io/categories/python/)
+ - [vim](https://lesssound.github.io/categories/vim/)
+ - [linux](https://lesssound.github.io/categories/linux/)
+ - [docker](https://lesssound.github.io/categories/docker/)

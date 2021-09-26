@@ -108,7 +108,7 @@ theme: ayer
 deploy:
   type: git
   repo: git@github.com:lesssound/lesssound.github.io.git
-  branch: master
+  branch: gh-pages
 
 auto_category:
  enable: true
