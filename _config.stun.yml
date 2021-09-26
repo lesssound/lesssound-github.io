@@ -1,0 +1,219 @@
+# `||` 分隔符之前是页面路径，`||` 分隔符之后是图标
+# 用法（有图标）: `Key: /路径/ || fa(s|r|l|d|b) fa-图标名称`
+# 用法（无图标）: `Key: /路径/`
+# fas far fal fad fab 是 FontAwesome 5.x 中图标的前缀，你需要根据具体图标自行设置
+# 查找图标名称，请访问：https://fontawesome.com/icons
+menu:
+  home: / || fas fa-home
+  archives: /archives/ || fas fa-folder-open
+  categories: /categories/ || fas fa-layer-group
+  # tags: /tags/ || fas fa-tags
+
+
+header:
+  enable: true
+  show_on:
+    # 在文章页面是否显示网站顶部
+    post: true
+  # 网站顶部的高度（设置为百分数，表示所占屏幕高度的百分比。支持所有 CSS 长度单位）
+  height: 100%
+  # 顶部背景图片
+  bg_image:
+    enable: true
+    # 填写图片路径或链接
+    url: https://images.pexels.com/photos/2835436/pexels-photo-2835436.jpeg?cs=srgb&dl=pexels-francesco-ungaro-2835436.jpg&fm=jpg
+  # 顶部背景图的遮罩效果
+  mask:
+    enable: true
+    # 透明度（取值：0 ~ 1）
+    opacity: 0.5
+  nav:
+    # 顶部导航栏的高度（支持所有 CSS 长度单位）
+    height: 50px
+    # 导航栏的背景颜色（吸顶时）
+    bg_color: "#333"
+  # 提示向下滚动的图标
+  scroll_down_icon:
+    enable: true
+    # 查找图标名称，请访问：https://fontawesome.com/icons
+    name: fas fa-angle-down
+    # 是否启用动画
+    animation: true
+
+
+author:
+  enable: true
+  # 侧边栏头像
+  avatar:
+    # 填写图片路径或链接
+    url: https://github.com/formattedd/formattedd.github.io/raw/hexo/source/_posts/daily/mybaby/baby.png
+    # 是否显示为圆形
+    rounded: true
+    # 头像透明度（取值：0 ~ 1）
+    opacity: 1
+    # 鼠标经过时的动画，可选值：turn 或 shake
+    animation: turn
+  # 格言（可以是任意一句想写的话）
+  motto: Good good study, day day Up !
+
+
+footer:
+  # 背景图片
+  bg_image:
+    enable: true
+    # 填写图片路径或链接
+    url: https://images.pexels.com/photos/4210037/pexels-photo-4210037.jpeg?cs=srgb&dl=pexels-anastasia-shuraeva-4210037.jpg&fm=jpg
+  # 遮罩效果
+  mask:
+    enable: true
+    # 遮罩透明度 (取值: 0 ~ 1).
+    opacity: 0.5
+  # 版权信息
+  copyright:
+    enable: true
+    # 显示的文字信息，例如：xxx All Rights Reserved
+    # 如果不设置，将显示 Hexo 配置文件中 author 项的内容
+    text: 2015
+    # 开始时间（如果不设置，将使用最新的年份）
+    since: 2021
+    # 结束时间（如果不设置，将使用最新的年份）
+    end:
+  # 日期和版权之间的图标
+  icon:
+    enable: true
+    # 查找图标名称，请访问：https://fontawesome.com/icons
+    name: fas fa-heart
+    # 心跳动画
+    animation: false
+    # 请使用包裹值（支持所有 CSS 颜色单位）
+    color: "#ff0000"
+  # Hexo 链接（Powered by Hexo）
+  powered:
+    enable: false
+    # 显示版本号（例如：vX.X.X）
+    version: false
+  # 主题链接（Theme - Stun）
+  theme:
+    enable: true
+    # 显示版本号（例如：vX.X.X）
+    version: false
+  # 备案信息（只有中国开发者会用到）详情: http://www.miitbeian.gov.cn/
+  beian:
+    enable: false
+    # 备案 XXXXXXXX 号
+    icp:
+  # 任何自定义文本，支持 HTML（例如：托管于 <a href="https://pages.github.com/" rel="noopener" target="_blank">Github Pages</a>）
+  custom:
+    enable: false
+    # 自定义文本内容
+    text:
+
+# `||` 分隔符之前是具体链接，`||` 分隔符之后是图标。
+# 用法（有图标）: `Key: /路径/ || fa(s|r|l|d|b) fa-图标名称`
+# 用法（无图标）: `Key: /路径/`
+# fas far fal fad fab 是 FontAwesome 5.x 中图标的前缀，你需要根据具体图标自行设置。
+# 查找图标名称，请访问：https://fontawesome.com/icons
+#
+# 如果你找不到想要的图标，可以考虑用文字来代替图标显示，用法：
+# 通过添加 `origin:` 前缀即可显示文字。例如：`origin:知` 会以 `知` 代替图标显示。
+social:
+  github: https://github.com/formattedd || fab fa-github
+  Gmail: mailto:ycm76229@gmail.com || origin:Gmail
+  google: / || fab fa-google
+  twitter: / || fab fa-twitter
+  youtube: / || fab fa-youtube
+
+# 社交链接的设置
+social_setting:
+  # 是否启用社交链接
+  enable: true
+  # 是否只显示图标
+  icon_only: true
+
+
+night_mode:
+  enable: true
+  # 切换夜晚模式的按钮
+  button:
+    # 按钮块的颜色（请使用引号包裹值）
+    color: "#fafafa"
+    # 按钮的背景颜色（请使用引号包裹值）
+    bg_color: "#8c8a8a"
+  # 代表白天和夜晚的图标（目前仅支持文本和 emoji）
+  icon:
+    dark: 🌜
+    light: 🌞
+
+
+local_search:
+  # 是否启用
+  enable: true
+
+
+pjax:
+  enable: true
+  # 是否在切换页面时，滚动到顶部大图的底部
+  avoid_banner: false
+  # ！！如果你不了解如何使用，请忽略下面的配置项（默认即可）！！
+  # 下面配置项的用法，请参见: https://github.com/MoOx/pjax/#options
+  elements:
+  selectors:
+  switches:
+  switchesOptions:
+  history: true
+  # 如果启用这个配置项，必须设置 `avoid_banner: false`
+  scrollTo: false
+  scrollRestoration: false
+  cacheBust: false
+  debug: false
+  currentUrlFullReload: false
+  timeout: 0
+
+toc:
+  enable: true
+  # 是否自动添加列表序号
+  list_number: true
+  # 是否文本溢出时换行
+  # true : 文本溢出时换行
+  # false: 文本溢出时不换行，显示横向滚动条
+  wrap: true
+  # 是否始终展开所有文章目录
+  # true ：始终展开
+  # false：默认折叠，滚动到对应位置时自动展开
+  expand_all: false
+  # 生成目录时，解析 `<h1~6>` 的最小深度
+  # 你可以在 Front-Matter 中，通过添加 `toc_min_depth` 属性，来为某篇文章指定该配置
+  min_depth: 1
+  # 生成目录时，解析 `<h1~6>` 的最大深度
+  # 你可以在 Front-Matter 中，通过添加 `toc_max_depth` 属性，来为某篇文章指定该配置
+  max_depth: 6
+
+busuanzi:
+  # 是否启用
+  enable: true
+  # 是否只显示图标
+  icon_only: false
+  # 统计站点 UV 数量
+  site_uv:
+    enable: true
+    # 查找图标名称，请访问：https://fontawesome.com/icons
+    icon: fas fa-user
+  # 统计站点 PV 数量
+  site_pv:
+    enable: true
+    # 查找图标名称，请访问：https://fontawesome.com/icons
+    icon: fas fa-eye
+  # 统计每篇文章的 PV 数量
+  post_pv:
+    enable: true
+    # 查找图标名称，请访问：https://fontawesome.com/icons
+    icon: fas fa-eye
+
+
+google_adsense:
+  # 是否启用
+  enable: true
+  # 填写你的 client-id
+  client: ca-pub-2468168745293588
+  # 如果和你 AdSense 嵌入代码中的脚本地址不一样，请更换
+  js_src: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js

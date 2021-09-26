@@ -1,0 +1,363 @@
+title: Docker
+draft: true
+categories:
+  - docker
+date: 2021-07-10 00:00:00
+---
+#### install
+```sh
+wget -qO- https://get.docker.com/ | sh
+sudo usermod -aG docker $USER
+```
+
+#### 修改源 
+```sh
+path: /etc/docker/daemon.json
+{
+  "registry-mirrors": ["http://hub-mirror.c.163.com"]
+}
+```
+#### lazydocker
+```sh
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/.config/jesseduffield/lazydocker lazyteam/lazydocker
+```
+
+#### docker-compose.yml 
+<details><summary> ddns </summary>
+```sh
+version: '3.1'
+services:
+  ddns:
+    image: sanjusss/aliyun-ddns
+    restart: always
+    network_mode: "host"
+    environment:
+      #  https://usercenter.console.aliyun.com/
+      AKID: 
+      AKSCT: 
+      DOMAIN: 
+      REDO: 30
+      TTL: 600
+      TIMEZONE: 8.0
+      TYPE: A,AAAA
+```
+
+</details>
+
+<details><summary> gops </summary>
+  ```sh
+version: '3'
+services:
+  db:
+    image: postgres:11-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: 'gogs'
+      POSTGRES_PASSWORD: 'gogs'
+      POSTGRES_DB: 'postgres'
+    ports:
+      - "5432:5432"
+    networks:
+      - gogs_net
+    volumes:
+      - ./data/postgres_data:/var/lib/postgresql/data
+
+  gogs:
+    image: gogs/gogs:latest
+    networks:
+      - gogs_net
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    restart: unless-stopped
+    volumes:
+      - ./data/gogs_data:/data:rw
+
+networks:
+  gogs_net:
+    driver: bridge
+```
+
+</details>
+
+<details><summary> httpbin </summary>
+```sh
+docker run -p 80:80 kennethreitz/httpbin
+http://127.0.0.1/get?show_env=1
+```
+</details>
+
+
+<details><summary> hoppscotch </summary>
+```sh
+docker run --rm --name hoppscotch -p 3000:3000 hoppscotch/hoppscotch:latest
+```
+</details>
+
+
+<details><summary> mongoDB </summary>
+  
+```sh
+# .env
+MONGO_ROOT_USER=username
+MONGO_ROOT_PASSWORD=password
+MONGODB_URL=mongodb://username:password@mongo:27017
+```
+  
+```sh
+# mongo.yml
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+    volumes:
+      - ./data/mongo:/data/db
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    links:
+      - mongo
+    environment:
+      - ME_CONFIG_MONGODB_URL=${MONGODB_URL}
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_ROOT_USER}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
+
+```
+
+</details>
+
+
+<details><summary> MySQL </summary>
+```sh
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+```
+
+
+ linux配置
+```sh
+/etc/mysql/my.cnf:
+
+[client]
+default-character-set = utf8
+
+[mysqld]
+default-storage-engine = INNODB
+character-set-server = utf8
+collation-server = utf8_general_ci
+```
+
+
+ others
+```sh
+protected-mode yes
+
+mysqldump -u root -p --all-databases > data.txt
+source data.txt
+
+create database testdb default charset utf8 COLLATE utf8_general_ci;
+
+http://docs.peewee-orm.com/en/latest/peewee/playhouse.html#pwiz-a-model-generator
+```
+
+</details>
+
+
+<details><summary>pgadmin4</summary>
+  ```sh
+version: '3.5'
+services:
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: xx@xx.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "80:80"
+```
+
+</details>
+
+
+<details><summary> PostgreSQL </summary>
+  
+```sh
+version: '3'
+services:
+  db:
+    image: postgres:10-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_USER: 'user'
+      POSTGRES_DB: 'postgres'
+      PGDATA: '/var/lib/postgresql/data'
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+  admin:
+    image: adminer
+    restart: always
+    depends_on: 
+      - db
+    ports:
+      - 8080:8080
+
+```
+
+可视化工具推荐
+```sh
+docker run -d -e SESSIONS=true -p 8081:8081 sosedoff/pgweb
+
+# mac
+tableplus
+```
+
+在linux 中安装
+```sh
+sudo apt-get install postgresql-client
+sudo apt-get install postgresql
+# sudo apt-get install pgadmin3
+# pgcli
+
+sudo adduser dbuser
+sudo su - postgres
+# sudo -u postgres psql
+psql
+\password postgres
+CREATE USER dbuser WITH PASSWORD 'password';
+CREATE DATABASE exampledb OWNER dbuser;
+GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
+
+psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
+psql exampledb
+# psql exampledb < exampledb.sql  #恢复外部数据
+pg_dump -U username -h localhost databasename >> sqlfile.sql
+
+sudo vi /etc/postgresql/9.5/main/postgresql.conf
+sudo gedit /etc/postgresql/9.5/main/pg_hba.conf		host all all 0.0.0.0/0 md5
+sudo /etc/init.d/postgresql restart
+
+```
+
+查询有外键的数据
+```sh
+select count(*) from "case" where court_id in (select id from court where province ='');
+```
+
+导出数据结构
+```sh
+python -m pwiz -e postgresql -u user -P db > model.py
+python -m pwiz -e mysql -H 192.168.1.x -u root -P dbname > model.py
+
+```
+
+</details>
+
+
+<details><summary> Postwoman </summary>
+  ```sh
+docker run -p 3000:3000 liyasthomas/postwoman:latest
+  ```
+</details>
+
+
+<details><summary> Redis </summary>
+
+redis 及其持久化
+```sh
+# redis.conf
+requirepass 123456
+appendonly yes
+daemonize no
+```
+
+```sh
+version: '3'
+services:
+  redis:
+      image: redis
+      restart: unless-stopped
+      # command: redis-server --requirepass 123456
+      command: redis-server /usr/local/etc/redis/redis.conf
+      ports:
+        - 6379:6379
+      volumes:
+        - ./redis.conf:/usr/local/etc/redis/redis.conf
+        - ./data/redis:/data/
+```
+
+</details>
+
+
+<details><summary>shiori 书签管理器</summary>
+
+
+```sh
+# 原链接 https://github.com/go-shiori/shiori/
+# loginuser: shiori 	
+# passwd: gopher
+version: "2.1"
+services:
+  shiori:
+    image: nicholaswilde/shiori:latest
+    container_name: shiori-default
+    environment:
+      TZ: Asia/Shanghai
+      PUID: 1000
+      PGID: 1000
+      SHIORI_PG_HOST: db
+      SHIORI_PG_PORT: 5432
+      SHIORI_PG_USER: user
+      SHIORI_PG_PASS: password
+      SHIORI_PG_NAME: ""
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    volumes:
+      - ./data/shiori:/data
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./data/shiori_postgres:/var/lib/postgresql/data
+
+```
+
+</details>
