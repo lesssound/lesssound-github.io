@@ -32,6 +32,8 @@ date: 2021-09-23 15:57:55
 brew tap mongodb/brew
 brew install mongodb-database-tools
 mongoexport --host 127.0.0.1:27017 -u user -p passwd --authenticationDatabase admin --db dbname -c cname --forceTableScan  -o res.json
+mongoexport --uri=mongodb://username:password@host:27017/ --authenticationDatabase=admin -d db -c collection -o result.json
+
 
 ```
 
