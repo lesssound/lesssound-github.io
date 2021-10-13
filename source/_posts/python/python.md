@@ -4,7 +4,6 @@ categories:
 date: 2021-06-17 11:30:22
 tags:
 ---
-
 #### json
 ```python
 json.dumps(item, ensure_ascii=False, indent=4)
@@ -60,6 +59,13 @@ with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
     # w.writerows(my_dict)
 ```
 
+#### xmljson
+```python
+import xmljson
+from lxml.etree import  fromstring,tostring
+
+json.loads(json.dumps(xmljson.badgerfish.data(fromstring(con.encode()))))
+```
 
 #### 乘法表 
 ```python
