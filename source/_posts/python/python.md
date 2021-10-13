@@ -4,15 +4,6 @@ categories:
 date: 2021-06-17 11:30:22
 tags:
 ---
-#### install on deepin
-```python
-./configure --with-ssl --enable-loadable-sqlite-extensions --enable-optimizations && make && sudo make install
-```
-
-#### 乘法表 
-```python
-print ('\n'.join([' '.join(['%s*%s=%-2s' % (y,x,x*y) for y in range(1,x+1)]) for x in range(1,10)]))
-```
 
 #### json
 ```python
@@ -55,5 +46,22 @@ print(type(result))
 
 now = datetime.now()
 print((now - result).days)
+```
 
+#### csv
+```python
+import csv
+
+my_dict = {"test": 1, "testing": 2}
+with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
+    w = csv.DictWriter(f, my_dict.keys())
+    w.writeheader()
+    w.writerow(my_dict)
+    # w.writerows(my_dict)
+```
+
+
+#### 乘法表 
+```python
+print ('\n'.join([' '.join(['%s*%s=%-2s' % (y,x,x*y) for y in range(1,x+1)]) for x in range(1,10)]))
 ```

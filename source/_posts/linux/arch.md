@@ -1,34 +1,30 @@
----
 title: arch
 categories:
   - linux
 date: 2021-07-14 17:46:50
 ---
-
 ### VPS linux to arch
 
-```sh
-https://gitlab.com/drizzt/vps2arch/-/wikis/Tested-VPS-Providers
-```
 
+- #### wiki
+	https://gitlab.com/drizzt/vps2arch/-/wikis/Tested-VPS-Providers
+
+- #### ⚠️ 设置root的密码
 
 - #### wget https://tinyurl.com/vps2arch 也会被重定向到以下 url
 ```sh
 wget https://gitlab.com/drizzt/vps2arch/-/raw/master/vps2arch
 ```
-- ##### 赋予执行权限
+
+- ##### 启动脚本
 ```sh
-chmod +x vps2arch
-```
-- ##### 启动脚本！
-```sh
-./vps2arch
+sh ./vps2arch
 ```
 - ##### 当你从脚本默认的源下载速度较慢的时候，可以使用 -m 参数指定源，例如
 
 ```sh
 
-./vps2arch -m https://mirrors.neusoft.edu.cn/archlinux/
+(sudo) sh ./vps2arch -m https://mirrors.neusoft.edu.cn/archlinux/
 sync ; reboot -f
 
 ```
