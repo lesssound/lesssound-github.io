@@ -16,6 +16,10 @@ yrm ls
 yrm use taobao
 yrm test
 
+# 临时
+npm --registry https://registry.npm.taobao.org install express
+
+# 写入文件
 npm config set registry https://registry.npm.taobao.org
 npm config get registry
 {% endcodeblock %}
