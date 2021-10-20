@@ -4,6 +4,7 @@ categories:
   - daily
 date: 2021-07-25 20:55:40
 tags:
+  - dota2
 ---
 
 

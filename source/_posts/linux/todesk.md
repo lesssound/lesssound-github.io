@@ -2,6 +2,8 @@
 title: 远程桌面
 categories:
   - linux
+tags:
+  - remote desktop
 date: 2021-07-28 15:00:32
 ---
 

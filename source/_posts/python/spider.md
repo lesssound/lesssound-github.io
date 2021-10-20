@@ -3,9 +3,10 @@ title: spider-selenium
 categories:
   - python
 date: 2021-08-23 15:34:39
+tags: [spider, selenium]
 ---
 
-```python
+{% codeblock "代码示例" lang:sh %}
 import random
 from selenium import webdriver
 from time import sleep
@@ -31,4 +32,4 @@ driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
     })
   """
 })
-```
+{% endcodeblock %}

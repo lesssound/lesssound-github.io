@@ -1,14 +1,13 @@
----
-title: Yarn_npm
+title: yarn_npm
 draft: true
 categories:
   - linux
+tags: [yarn npm]
 date: 2021-07-10 00:00:00
 ---
 
 
-## yarn && npm
-```sh
+{% codeblock "commands" lang:sh %}
 yarn config set registry 'https://registry.npm.taobao.org'
 yarn config get registry
 
@@ -19,4 +18,4 @@ yrm test
 
 npm config set registry https://registry.npm.taobao.org
 npm config get registry
-```
+{% endcodeblock %}

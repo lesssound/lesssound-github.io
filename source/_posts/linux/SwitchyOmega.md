@@ -2,6 +2,8 @@
 title: SwitchyOmega
 categories:
   - linux
+tags:
+  - proxy
 date: 2021-07-28 16:11:42
 ---
 

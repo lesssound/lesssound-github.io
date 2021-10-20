@@ -1,10 +1,13 @@
+---
 title: fastapi demo
 categories:
   - python
 date: 2021-07-17 11:24:25
 tags:
+  - fastapi
 ---
-```python
+
+{% codeblock "code" lang:sh >folded %}
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -41,4 +44,4 @@ app.add_api_route("/items/", create_item, methods=['POST'])
 if __name__ == '__main__':
     uvicorn.run('main:app', reload=True)
 # gunicorn test:app -w 4 -k uvicorn.workers.UvicornWorker
-```
+{% endcodeblock %}

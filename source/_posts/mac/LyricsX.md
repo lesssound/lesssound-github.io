@@ -2,6 +2,8 @@
 title: LyricsX
 categories:
   - mac
+tags:
+  - mac
 date: 2021-07-27 11:16:51
 ---
 

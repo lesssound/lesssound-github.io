@@ -2,6 +2,8 @@ title: Docker
 draft: true
 categories:
   - docker
+tags:
+  - docker
 date: 2021-07-10 00:00:00
 ---
 #### install

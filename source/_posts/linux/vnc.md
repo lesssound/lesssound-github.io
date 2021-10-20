@@ -1,13 +1,15 @@
 title: vnc
 categories:
   - linux
-date: 2021-07-17 11:23:12
 tags:
+  - remote desktop
+date: 2021-07-17 11:23:12
 ---
-#### 服务端安装
 
-```sh
-ubuntu -> 
+
+{% codeblock "服务端安装" lang:sh %}
+
+# ubuntu 
   sudo apt-get install x11vnc
 
   x11vnc -storepasswd
@@ -19,15 +21,14 @@ ubuntu ->
   https://www.realvnc.com/en/connect/download/viewer/
 
 
-arch ->
+# arch 
     yay -S x11vnc net-tools
     update -> /etc/gdm/custom.conf:
         WaylandEnable=false
 
     x11vnc -wait 50 -noxdamage -passwd PASSWORD -display :0 -forever -o /var/log/x11vnc.log -bg 
-```
+{% endcodeblock %}
 
-#### 客户端
-```sh
+{% codeblock "客户端" lang:sh %}
 https://www.realvnc.com/
-```
+{% endcodeblock %}

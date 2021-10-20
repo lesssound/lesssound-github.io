@@ -1,6 +1,8 @@
 title: arch
 categories:
   - linux
+tags:
+  - arch
 date: 2021-07-14 17:46:50
 ---
 ### VPS linux to arch

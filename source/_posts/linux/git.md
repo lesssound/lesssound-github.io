@@ -3,6 +3,8 @@ title: Git
 draft: true
 categories:
   - linux
+tags:
+  - git
 date: 2021-07-10 00:00:00
 ---
 

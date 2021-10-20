@@ -5,16 +5,16 @@ tags:
   - vim
 date: 2021-08-17 10:49:00
 ---
-## 我的nvim配置
-```sh
+
+
+{% codeblock "我的nvim配置" lang:sh %}
 https://github.com/formattedd/vimrc
-```
+{% endcodeblock %}
 
 ## 插件
 
-### 代码补全插件 lsp
+{% codeblock "代码补全插件 lsp" lang:sh >folded %}
 
-```sh
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
@@ -56,11 +56,10 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-```
+{% endcodeblock %}
 
-### coc
+{% codeblock "coc" lang:sh >folded %}
 
-```sh
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Use release branch (recommend)
 
 let g:coc_disable_startup_warning=1
@@ -84,17 +83,15 @@ endfunction
 nmap <Space>n :CocCommand explorer<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
-```
+{% endcodeblock %}
 
-#### explorer 文件目录配置相对行
-```sh
+{% codeblock "explorer 文件目录配置相对行" lang:sh >folded %}
 vi ~/.config/coc/extensions/node_modules/coc-explorer/autoload/coc_explorer/init.vim
 
 找到relativenumber，修改0为1
-```
+{% endcodeblock %}
 
-### 注释
-```sh
+{% codeblock "注释" lang:sh >folded %}
 Plug 'preservim/nerdcommenter' " 注释
 
 nmap <Space><Space> <plug>NERDCommenterToggle
@@ -123,4 +120,4 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
-```
+{% endcodeblock %}

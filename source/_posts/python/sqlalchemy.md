@@ -4,13 +4,17 @@ categories:
   - python
 date: 2021-07-17 11:31:42
 tags:
+  - sqlalchemy
 ---
 
 
-```python
-
+{% codeblock "安装及导出model" lang:sh %}
 # pip install psycopg2-binary
 # sqlacodegen postgres://user:passwd@host:ip/database --outfile model.py
+{% endcodeblock %}
+
+
+{% codeblock "code" lang:sh >folded %}
 
 from sqlalchemy import create_engine
 from sqlalchemy import Column, String
@@ -57,4 +61,4 @@ session.commit()
 delete_obj = Shop.__table__.delete().where(Shop.shop_cate.contains("m"))
 session.execute(delete_obj)
 session.commit()
-```
+{% endcodeblock %}

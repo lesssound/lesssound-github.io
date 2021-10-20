@@ -2,8 +2,9 @@
 title: ubuntu
 categories:
   - linux
-date: 2021-06-17 11:20:14
 tags:
+  - ubuntu
+date: 2021-06-17 11:20:14
 ---
 
 #### 中文乱码

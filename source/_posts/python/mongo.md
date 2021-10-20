@@ -1,9 +1,13 @@
 title: mongo
 categories:
   - python
+tags:
+  - mongodb
 date: 2021-09-23 15:57:55
 ---
-```sh
+
+
+{% codeblock "MongoDB 语法" lang:sh >folded %}
 # db.users.find() select * from users
 # db.users.find({"age" : 27}) select * from users where age = 27
 # db.users.find({"username" : "joe", "age" : 27}) select * from users where "username" = "joe" and age = 27
@@ -27,17 +31,18 @@ date: 2021-09-23 15:57:55
 # db.foo.find({"$where" : "this.x + this.y == 10"}) // 复杂的查询，$where当然是非常方便的，但效率低下。对于复杂查询，考虑的顺序应当是 正则 -> MapReduce -> $where
 # db.foo.find({"$where" : "function() { return this.x + this.y == 10; }"}) // $where可以支持javascript函数作为查询条件
 # db.foo.find().sort({"x" : 1}).limit(1).skip(10); // 返回第(10, 11]条，按"x"进行排序; 三个limit的顺序是任意的，应该尽量避免skip中使用large-number
+{% endcodeblock %}
 
+{% codeblock "Mac上导出MongoDB数据" lang:sh %}
 # Mac install mongo tools
 brew tap mongodb/brew
 brew install mongodb-database-tools
 mongoexport --host 127.0.0.1:27017 -u user -p passwd --authenticationDatabase admin --db dbname -c cname --forceTableScan  -o res.json
 mongoexport --uri=mongodb://username:password@host:27017/ --authenticationDatabase=admin -d db -c collection -o result.json
+{% endcodeblock %}
 
 
-```
-
-```python
+{% codeblock "Python 调用 MongoDB" lang:sh >folded %}
 import pymongo
 
 from settings import Config
@@ -72,5 +77,4 @@ class MongoAPI:
     def quit(self):
         self.myclient.close()
 
-
-```
+{% endcodeblock %}

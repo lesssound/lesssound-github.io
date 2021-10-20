@@ -4,30 +4,26 @@ draft: true
 categories:
   - python
 date: 2021-07-10 00:00:00
+tags:
+  - pip
 ---
 
-### virtualenv 
-```sh
+{% codeblock "code" lang:sh %}
+# virtualenv 
 (sudo) pip install virtualenv
 virtualenv -p /usr/bin/python3.7 ~/.virtualenv/py3
 # pip freeze > requirements.txt
-```
 
-### pipenv
-```sh
+# pipenv
 alias pv='pipenv run python'
 alias pi='pipenv run pip install '
-```
 
-### pip.conf
+# pip.conf
 
-- ##### 一次
-```sh
+- ### 一次
 pip install web.py -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
-```
-- ##### 全局
+- ### 全局
 
-```sh
 # 清华源
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 # 阿里源
@@ -45,10 +41,8 @@ or
   index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]
   trusted-host=mirrors.aliyun.com
-```
 
-### error: 
-- ##### locale.Error: unsupported locale setting
-```sh
+# locale.Error: unsupported locale setting
 export LC_ALL=C
-```
+
+{% endcodeblock %}

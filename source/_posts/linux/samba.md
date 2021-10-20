@@ -2,8 +2,9 @@
 title: samba 
 categories:
   - linux
-date: 2021-07-17 11:21:09
 tags:
+  - samba
+date: 2021-07-17 11:21:09
 ---
 
 ### 在arch 中安装参考 

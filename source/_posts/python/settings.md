@@ -4,10 +4,11 @@ categories:
   - python
 date: 2021-07-17 11:34:39
 tags:
+  - python
 ---
 
 
-```python
+{% codeblock "code" lang:python %}
 import os
 import sys
 
@@ -57,4 +58,5 @@ class ConfigMeta:
 
 
 Config = ConfigMeta()
-```
+
+{% endcodeblock %}

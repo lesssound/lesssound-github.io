@@ -2,8 +2,11 @@ title: fastapi send mail
 categories:
   - python
 date: 2021-08-17 17:40:50
+tags: [fastapi, email]
 ---
-```sh
+
+
+{% codeblock "code" lang:sh %}
 
 from fastapi import FastAPI, BackgroundTasks, UploadFile, File, Form
 from starlette.responses import JSONResponse
@@ -78,4 +81,4 @@ async def send_file(
 
 if __name__ == '__main__':
     uvicorn.run('main:app', reload=True)
-```
+{% endcodeblock %}

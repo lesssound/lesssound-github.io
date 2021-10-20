@@ -3,6 +3,8 @@ title: Ssh
 draft: true
 categories:
   - linux
+tags:
+  - ssh
 date: 2021-07-10 00:00:00
 ---
 

@@ -4,10 +4,11 @@ categories:
   - python
 date: 2021-07-17 11:27:48
 tags:
+  - python
 ---
 
 
-```python
+{% codeblock "code" lang:sh %}
 
 import multiprocessing
 
@@ -41,4 +42,5 @@ def func2():
 if __name__ == "__main__":
     # func1()
     func2()
-```
+
+{% endcodeblock %}

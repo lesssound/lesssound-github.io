@@ -2,10 +2,12 @@
 title: mtmr 
 categories:
   - mac
+tags:
+  - mac
 date: 2021-07-17 10:36:50
 ---
 
-```sh
+{% codeblock "mtmr 配置" lang:sh >folded %}
 [{
         "type": "dnd",
         "align": "left",
@@ -142,4 +144,4 @@ date: 2021-07-17 10:36:50
     //     "longShellArguments": ["sleepnow"]
     // }
 ]
-```
+{% endcodeblock %}

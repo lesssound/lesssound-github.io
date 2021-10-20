@@ -1,6 +1,8 @@
 title: nginx
 categories:
   - linux
+tags:
+  - nginx
 date: 2021-09-02 11:48:21
 ---
 ## nginx config

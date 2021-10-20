@@ -1,10 +1,10 @@
 ---
 title: Supervisor 
-draft: true
 categories:
   - linux
-date: 2021-07-17 11:18:45
 tags:
+  - supervisor
+date: 2021-07-17 11:18:45
 ---
 
 #### 后缀为conf或ini
