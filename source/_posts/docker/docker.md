@@ -385,8 +385,8 @@ services:
       - DB_TYPE=postgres
       - DB_HOST=db:5432
       - DB_NAME=gitea
-      - DB_USER=cp
-      - DB_PASSWD=cpgroup
+      - DB_USER=username
+      - DB_PASSWD=password
     restart: always
     networks:
       - gitea
@@ -402,8 +402,8 @@ services:
     image: postgres:13-alpine
     restart: always
     environment:
-      - POSTGRES_USER=cp
-      - POSTGRES_PASSWORD=cpgroup
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=gitea
     networks:
       - gitea
