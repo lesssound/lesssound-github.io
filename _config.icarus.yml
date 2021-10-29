@@ -213,7 +213,7 @@ sidebar:
     # Left sidebar configurations
     left:
         # Whether the sidebar sticks to the top when page scrolls
-        sticky: true
+        sticky: false
     # Right sidebar configurations
     right:
         # Whether the sidebar sticks to the top when page scrolls
@@ -276,6 +276,8 @@ widgets:
         # Names and URLs of the sites
         links:
             Hexo: 'https://hexo.io'
+            $$: 'https://portal.shadowsocks.nz/aff.php?aff=24252'
+            Vultr: 'https://www.vultr.com/?ref=7378179'
             # Bulma: 'https://bulma.io'
             # Github: 'https://github.com/lesssound'
     # Categories widget configurations
