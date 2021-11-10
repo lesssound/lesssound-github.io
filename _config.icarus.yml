@@ -229,7 +229,7 @@ widgets:
         # Author name
         author: lesssound
         # Author title
-        author_title: Stay hungry
+        author_title: stay hungry stay foolish
         # Author's current location
         location: Jiangsu/Nanjing
         # URL or path to the avatar image
@@ -276,6 +276,7 @@ widgets:
         # Names and URLs of the sites
         links:
             Hexo: 'https://hexo.io'
+            Mirror: 'https://blog.viewer.pub'
             $$: 'https://portal.shadowsocks.nz/aff.php?aff=24252'
             Vultr: 'https://www.vultr.com/?ref=7378179'
             # Bulma: 'https://bulma.io'
