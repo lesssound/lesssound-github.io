@@ -1,16 +1,16 @@
 title: fastapi send mail
 categories:
   - python
+tags:
+  - fastapi
+  - email
 date: 2021-08-17 17:40:50
-tags: [fastapi, email]
 ---
-
-
 {% codeblock "code" lang:sh %}
 
+import uvicorn
 from fastapi import FastAPI, BackgroundTasks, UploadFile, File, Form
 from starlette.responses import JSONResponse
-#  from starlette.requests import Request
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 from pydantic import BaseModel, EmailStr
 from typing import List, Text
@@ -22,12 +22,14 @@ class EmailSchema(BaseModel):
 
 conf = ConnectionConfig(
 	# update username, password, from
-    MAIL_USERNAME="123456",
+    # example qq mail
+    # https://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256
+    MAIL_USERNAME="qq123456",
     MAIL_PASSWORD="password",
-    MAIL_FROM="123456@qq.com",
-    
+    MAIL_FROM="qq123456@qq.com",
     MAIL_PORT=587,
     MAIL_SERVER="smtp.qq.com",
+    
     MAIL_TLS=True,
     MAIL_SSL=False,
     USE_CREDENTIALS=True,
@@ -80,5 +82,6 @@ async def send_file(
     return JSONResponse(status_code=200, content={"message": "email has been sent"})
 
 if __name__ == '__main__':
-    uvicorn.run('main:app', reload=True)
+    uvicorn.run('main:app', reload=True, host='127.0.0.1', port=8000)
+    # https://sabuhish.github.io/fastapi-mail/example/
 {% endcodeblock %}
