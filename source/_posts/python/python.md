@@ -8,10 +8,9 @@ date: 2021-06-17 11:30:22
 {% codeblock "code" lang:python %}
 
 # mysql-clients
-```sh
 yay -S --noconfirm mysql-clients gcc
 pip install mysqlclient
-```
+
 
 # json
 json.dumps(item, ensure_ascii=False, indent=4)
