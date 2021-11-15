@@ -323,7 +323,7 @@ services:
 </details>
 
 
-<details><summary>shiori 书签管理器</summary>
+<details><summary>书签管理器 shiori</summary>
 
 
 ```sh
@@ -482,7 +482,7 @@ services:
 </details>
 
 
-<details><summary>embyserver</summary>
+<details><summary>电影播放 embyserver</summary>
 ```sh
 version: "2.3"
 services:
@@ -505,8 +505,40 @@ services:
     devices:
       - /dev/dri:/dev/dri # VAAPI/NVDEC/NVENC render nodes
     #   - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
-    restart: unless-stopped
+    restart: unless-stopped      
+```
+</details>
+  
+<details><summary>文件共享管理 nextcloud</summary>
+```sh
+version: '2'
 
-      
+services:
+  db:
+    image: mariadb
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    volumes:
+      - ./data/nextcloud/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  app:
+    image: nextcloud
+    restart: always
+    ports:
+      - 9000:80
+    links:
+      - db
+    volumes:
+      - /data:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
 ```
 </details>
