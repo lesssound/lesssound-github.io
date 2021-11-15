@@ -1,5 +1,4 @@
----
-title: mtmr 
+title: Mac touch bar 管理-mtmr
 categories:
   - mac
 tags:

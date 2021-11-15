@@ -1,5 +1,4 @@
----
-title: LyricsX
+title: 在touch bar 上显示歌词-LyricsX
 categories:
   - mac
 tags:
