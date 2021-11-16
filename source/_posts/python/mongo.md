@@ -5,9 +5,9 @@ tags:
   - mongodb
 date: 2021-09-23 15:57:55
 ---
-
-
 {% codeblock "MongoDB 语法" lang:sh >folded %}
+
+# db.users.find({ create_at: { $exists: true } }) 
 # db.users.find() select * from users
 # db.users.find({"age" : 27}) select * from users where age = 27
 # db.users.find({"username" : "joe", "age" : 27}) select * from users where "username" = "joe" and age = 27
