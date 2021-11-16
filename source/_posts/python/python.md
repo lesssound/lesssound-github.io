@@ -35,6 +35,8 @@ pip install python-dateutil
 from datetime import datetime
 from dateutil import parser
 
+format_time = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+
 t = "Thu, 9 Sep 2021 00:17:59"
 result = parser.parse(t)
 print(result)
