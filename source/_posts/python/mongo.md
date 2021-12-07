@@ -37,8 +37,13 @@ date: 2021-09-23 15:57:55
 # Mac install mongo tools
 brew tap mongodb/brew
 brew install mongodb-database-tools
+# in arch: yay -S --noconfirm mongodb-tools-bin
+
+## export
 mongoexport --host 127.0.0.1:27017 -u user -p passwd --authenticationDatabase admin --db dbname -c cname --forceTableScan  -o res.json
 mongoexport --uri=mongodb://username:password@host:27017/ --authenticationDatabase=admin -d db -c collection -o result.json
+## import
+mongoimport --uri=mongodb://username:password@host:27017/ --authenticationDatabase=admin -d db -c collection --file=result.json
 {% endcodeblock %}
 
 
