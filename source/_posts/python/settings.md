@@ -1,17 +1,16 @@
----
 title: settings
 categories:
   - python
-date: 2021-07-17 11:34:39
 tags:
   - python
+date: 2021-07-17 11:34:39
 ---
-
-
 {% codeblock "code" lang:python %}
+# pip install python-dotenv pyyaml loguru
 import os
 import sys
 
+import toml
 import yaml
 from loguru import logger
 from dotenv import load_dotenv
@@ -43,20 +42,57 @@ logger.add(
 )
 
 
-class ConfigMeta:
-    def __init__(self, _file="config.yaml"):
+class SettingsMeta:
+    def __init__(self, _file=None):
         self.file = _file
 
+    # read config.yaml
+    def read_yaml(self, key, file="settings.yaml"):
+        if os.path.exists(file):
+            with open(file, "r") as f:
+                con = yaml.safe_load(f)
+            if con:
+                #  logger.debug(con)
+                return con.get(key)
+
+    # read .secrets.toml
+    def read_toml(self, key, file=".secrets.toml"):
+        if os.path.exists(file):
+            con = toml.load(file)
+            if con:
+                #  logger.debug(con)
+                return con.get(key)
+
+    # read .env
+    def read_env(self, key):
+        load_dotenv()
+        return os.getenv(key)
+
     def __getattr__(self, key):
-        with open(self.file, "r") as file:
-            self.con = yaml.safe_load(file)
-        result = self.con.get(key)
-        if not result:
-            load_dotenv()
-            result = os.getenv(key)
+        result = None
+
+        file_function = {
+            "yaml": self.read_yaml,
+            "toml": self.read_toml,
+            "env": self.read_env,
+        }
+
+        if self.file:
+            file_type = self.file.split(".")
+            func = file_function.get(file_type[-1])
+            if func:
+                return func(key)
+            else:
+                return
+
+        functions = [self.read_yaml, self.read_toml, self.read_env]
+        for ft in functions:
+            result = ft(key)
+            if result:
+                return result
         return result
 
 
-Config = ConfigMeta()
+settings = SettingsMeta()
 
 {% endcodeblock %}
