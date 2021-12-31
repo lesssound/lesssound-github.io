@@ -1,10 +1,31 @@
-title: Mac touch bar 管理-mtmr
+title:  Mac Config && Softwares 
 categories:
   - mac
 tags:
   - mac
-date: 2021-07-17 10:36:50
+date: 2021-07-27 11:16:51
 ---
+
+### 刷新DNS
+```sh
+sudo dscacheutil -flushcache
+```
+
+### Mac终端录屏
+
+```sh
+# https://github.com/icholy/ttygif
+brew install ttygif
+ttyrec myrecording
+
+# On OSX optionally you can set a -f flag which will bypass cropping which is needed for terminal apps which aren't full screen. Both standard Terminal and iTerm apps are supported.
+ttygif myrecording -f
+```
+
+### 在touch bar 上显示歌词-LyricsX
+
+https://github.com/ddddxxx/LyricsX
+
 
 {% codeblock "mtmr 配置" lang:sh >folded %}
 [{
