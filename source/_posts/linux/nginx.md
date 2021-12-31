@@ -7,6 +7,11 @@ date: 2021-09-02 11:48:21
 ---
 ## nginx config
 
+### 推荐在线配置
+```sh
+https://www.digitalocean.com/community
+```
+
 ### 静态文件
 ```sh
 server {
