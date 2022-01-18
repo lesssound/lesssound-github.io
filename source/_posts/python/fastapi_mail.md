@@ -1,4 +1,4 @@
-title: fastapi send mail
+title: python send mail
 categories:
   - python
 tags:
@@ -6,7 +6,7 @@ tags:
   - email
 date: 2021-08-17 17:40:50
 ---
-{% codeblock "code" lang:sh %}
+{% codeblock "fastapi send mail API" lang:sh %}
 
 import uvicorn
 from fastapi import FastAPI, BackgroundTasks, UploadFile, File, Form
@@ -84,4 +84,17 @@ async def send_file(
 if __name__ == '__main__':
     uvicorn.run('main:app', reload=True, host='127.0.0.1', port=8000)
     # https://sabuhish.github.io/fastapi-mail/example/
+{% endcodeblock %}
+
+{% codeblock "yagmail" lang:sh %}
+import yagmail
+
+username = "xxx@qq.com"
+password = "xxx"
+host = "smtp.qq.com"
+
+mail = yagmail.SMTP(user=username, password=password, host=host)
+
+mail.send(to=username, subject="这是主题", contents=["这是内容", r"./logs/1695814_1.png"])
+print("finish !")
 {% endcodeblock %}
