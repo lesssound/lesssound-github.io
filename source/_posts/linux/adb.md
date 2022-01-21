@@ -2,7 +2,7 @@ title: adb
 categories:
   - linux
 tags:
-  - mongodb
+  - android
 date: 2022-01-10 09:57:55
 ---
 {% codeblock "adb commands" lang:sh %}

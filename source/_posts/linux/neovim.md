@@ -7,7 +7,7 @@ tags:
 date: 2021-08-17 10:49:00
 ---
 {% codeblock "我的neovim配置" lang:sh %}
-https://github.com/formattedd/nvim-config
+https://github.com/lesssound/nvim-config
 {% endcodeblock %}
 
 ## 插件
