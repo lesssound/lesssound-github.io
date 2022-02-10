@@ -1,4 +1,3 @@
----
 title: proxy
 categories:
   - linux
@@ -6,8 +5,6 @@ tags:
   - proxy
 date: 2021-07-17 11:12:54
 ---
-
-
 ## trojan-go
 ```sh
 brew install trojan-go
@@ -17,11 +14,14 @@ brew install trojan-go
 brew service start trojan-go
 ```
 
-## glider
+## [glider](https://github.com/nadoo/glider/blob/master/config/glider.conf.example)
 ```sh
 yay -S glider
 
 glider -listen :1080 -forward trojan://password@ip:443
+
+# with auth
+glider -listen http://user:user_passwd@:61000 -forward trojan://password@ip:443
 ```
 
 ## trojan
