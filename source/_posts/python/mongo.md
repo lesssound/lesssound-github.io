@@ -50,33 +50,44 @@ mongoimport --uri=mongodb://username:password@host:27017/ --authenticationDataba
 {% codeblock "Python 调用 MongoDB" lang:sh >folded %}
 import pymongo
 
-from settings import Config
+from setting import Config, logger
+
+
+def connect_mongo(uri, db, tablename):
+    myclient = pymongo.MongoClient(uri)
+    mydb = myclient[db]
+    mycol = mydb[tablename]
+    return mycol, myclient
 
 
 class MongoAPI:
-    def __init__(self, db='db', tablename='tablename'):
+    def __init__(self, db="db", tablename="tablename"):
         self.uri = Config.MONGO_URI
         self.myclient = pymongo.MongoClient(self.uri)
         mydb = self.myclient[db]
         self.mycol = mydb[tablename]
 
     # values = {"abr": 1}
-    def query(self, myquery={'name': "somename"}, values=None):
-        return self.mycol.find(myquery, values)
+    def query(self, myquery={"name": "somename"}, values=None):
+        return [q for q in self.mycol.find(myquery, values)]
 
     def save(self, data):
         try:
             self.mycol.insert_one(data)
             return True
         except Exception as err:
-            print(err)
-            return False
+            if "duplicate key error collection" in str(err):
+                print("saved ", data["_id"])
+            else:
+                print(err)
+                return False
 
-    def update(self, _id, _key, data):
-        myquery = {'id': _id}
-        newvalues = {"$set": {_key: data}}
-        self.mycol.update_one(myquery, newvalues)
-        print(f'update success {_id}')
+    #  myquery = {"asin": "B07K36J4VP"}
+    #  myquery = { "name": { "$regex": "^F" } }
+    #  newvalues={"_id": 1})
+    def update(self, myquery, newvalues):
+        self.mycol.update_one(myquery, newvalues, upsert=False)
+        logger.info(f"update success {myquery}")
         return True
 
     def quit(self):
