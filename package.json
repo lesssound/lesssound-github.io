@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "predeploy": "npm run build",
-        "deploy": "hexo deploy",
+        "deploy": "hexo d -g",
         "build": "hexo generate",
         "clean": "hexo clean",
         "server": "hexo server"
