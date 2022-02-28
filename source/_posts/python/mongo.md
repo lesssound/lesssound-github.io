@@ -84,7 +84,7 @@ class MongoAPI:
 
     #  myquery = {"asin": "B07K36J4VP"}
     #  myquery = { "name": { "$regex": "^F" } }
-    #  newvalues={"_id": 1})
+    #  newvalues = {"$set": {"comments": "values"}}
     def update(self, myquery, newvalues):
         self.mycol.update_one(myquery, newvalues, upsert=False)
         logger.info(f"update success {myquery}")
