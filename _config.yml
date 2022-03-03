@@ -1,13 +1,13 @@
 title: 笔记
-subtitle: https://github.com/lesssound/lesssound.github.io
+subtitle: https://github.com/hjkl01/hjkl01.github.io
 description: 我的日常笔记，方便查找
 keywords: null
 author: ycm76229@gmail.com
 language: zh-CN
 timezone: Asia/Shanghai
 toc: true
-url: https://lesssound.github.io/
-install_url: https://lesssound.github.io/
+url: https://hjkl01.github.io/
+install_url: https://hjkl01.github.io/
 permalink: ':year/:month/:day/:title/'
 permalink_defaults: null
 pretty_urls:
@@ -64,7 +64,7 @@ ignore: null
 theme: icarus
 deploy:
   type: git
-  repo: git@github.com:lesssound/lesssound.github.io.git
+  repo: git@github.com:hjkl01/hjkl01.github.io.git
   branch: gh-pages
 auto_category:
   enable: true
