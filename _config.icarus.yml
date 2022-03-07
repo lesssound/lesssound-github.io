@@ -5,7 +5,7 @@ variant: default
 # Path or URL to the website's logo
 # logo: '/images/baby.png'
 logo:
-    text: lesssound
+    text: hjkl01
 # Page metadata configurations
 head:
     # URL or path to the website's icon
@@ -19,7 +19,7 @@ head:
         # when there is not enough space to display full name
         short_name: 笔记
         # The start URL of the web application
-        start_url: https://lesssound/github.io
+        start_url: https://hjkl01/github.io
         # The default theme color for the application
         theme_color: 
         # A placeholder background color for the application page to display
@@ -129,7 +129,7 @@ footer:
         #     url: 'https://creativecommons.org/licenses/by/4.0/'
         Download on GitHub:
             icon: fab fa-github
-            url: 'https://github.com/lesssound/'
+            url: 'https://github.com/hjkl01/'
 # Article related configurations
 article:
     # Code highlight settings
@@ -165,7 +165,7 @@ search:
 comment:
     type: disqus
     # Disqus shortname
-    shortname: 'lesssound'
+    shortname: 'hjkl01'
 # Donate plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
 donates:
@@ -227,7 +227,7 @@ widgets:
         position: left
         type: profile
         # Author name
-        author: lesssound
+        author: hjkl01
         # Author title
         author_title: stay hungry stay foolish
         # Author's current location
@@ -239,12 +239,12 @@ widgets:
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
-        follow_link: 'https://github.com/lesssound'
+        follow_link: 'https://github.com/hjkl01'
         # Links to be shown on the bottom of the profile widget
         social_links:
             Github:
                 icon: fab fa-github
-                url: 'https://github.com/lesssound'
+                url: 'https://github.com/hjkl01'
             # Facebook:
             #     icon: fab fa-facebook
             #     url: 'https://facebook.com'
@@ -280,7 +280,7 @@ widgets:
             $$: 'https://portal.shadowsocks.nz/aff.php?aff=24252'
             Vultr: 'https://www.vultr.com/?ref=7378179'
             # Bulma: 'https://bulma.io'
-            # Github: 'https://github.com/lesssound'
+            # Github: 'https://github.com/hjkl01'
     # Categories widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
