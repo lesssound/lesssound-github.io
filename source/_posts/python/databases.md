@@ -1,12 +1,11 @@
----
-title: sqlalchemy
+title: databases
 categories:
   - python
-date: 2021-07-17 11:31:42
 tags:
   - sqlalchemy
+date: 2021-07-17 11:31:42
 ---
-
+### sqlalchemy
 
 {% codeblock "安装及导出model" lang:sh %}
 # pip install psycopg2-binary
@@ -61,4 +60,45 @@ session.commit()
 delete_obj = Shop.__table__.delete().where(Shop.shop_cate.contains("m"))
 session.execute(delete_obj)
 session.commit()
+{% endcodeblock %}
+
+{% codeblock "databases" lang:sh %}
+# pip install 'databases[aiomysql]' aiomysq
+import asyncio
+
+# Create a database instance, and connect to it.
+from databases import Database
+
+
+async def run():
+    db_url = "mysql://user:passwd@host:port/db"
+    database = Database(db_url)
+    #  database = Database("sqlite+aiosqlite:///example.db")
+    await database.connect()
+
+    # Create a table.
+    #  query = """CREATE TABLE HighScores (id INTEGER PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100), score INTEGER)"""
+    #  await database.execute(query=query)
+
+    # Insert some data.
+    query = "INSERT INTO HighScores(name, score) VALUES (:name, :score)"
+    values = [
+        {"name": "Daisy", "score": 92},
+        {"name": "Neil", "score": 87},
+        {"name": "Carol", "score": 43},
+    ]
+    await database.execute_many(query=query, values=values)
+
+    # Run a database query.
+    query = "SELECT * FROM HighScores"
+    rows = await database.fetch_all(query=query)
+    print("High Scores:", rows)
+    for r in rows:
+        print(r)
+    return rows
+
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(run())
+
 {% endcodeblock %}
