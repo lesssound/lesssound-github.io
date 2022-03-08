@@ -149,17 +149,23 @@ services:
 version: '3.1'
 
 services:
-
   db:
-    image: mysql
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - ./data/mysql:/var/lib/mysql
     restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=data
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_HOST=%
     ports:
       - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test
-    volumes:
-      - ./mysql_data:/var/lib/mysql
 ```
 
 
