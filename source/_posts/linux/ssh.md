@@ -14,6 +14,8 @@ Host archServer
     HostName 192.168.xx.xx
     User xxx
     Port xxx
+    # use ipv4
+    # AddressFamily inet
     IdentitiesOnly yes
     IdentityFile ~/.ssh/id_rsa
     ServerAliveInterval 120
