@@ -111,6 +111,8 @@ navbar:
         归档: /archives
         分类: /categories
         标签: /tags
+        Python: /python/index.html
+        Linux: /linux/index.html
         # About: /about
     # Links to be shown on the right of the navigation bar
     links:
