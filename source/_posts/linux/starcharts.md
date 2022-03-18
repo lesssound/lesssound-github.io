@@ -1,4 +1,4 @@
-title: startchart
+title: starchart
 author: ycm76229@gmail.com
 tags:
   - github
