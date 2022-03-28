@@ -4,11 +4,9 @@
     "homepage": "http://hjkl01.github.io/blog-gh-pages",
     "private": true,
     "scripts": {
-        "predeploy": "npm run build",
+        "server": "hexo s",
         "deploy": "hexo d -g",
-        "build": "hexo generate",
-        "clean": "hexo clean",
-        "server": "hexo server"
+        "clean": "hexo clean"
     },
     "hexo": {
         "version": "5.4.0"
