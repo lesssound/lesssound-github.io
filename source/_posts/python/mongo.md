@@ -50,9 +50,6 @@ mongoimport --uri=mongodb://username:password@host:27017/ --authenticationDataba
 {% codeblock "Python 调用 MongoDB" lang:sh >folded %}
 import pymongo
 
-from setting import Config, logger
-
-
 def connect_mongo(uri, db, tablename):
     myclient = pymongo.MongoClient(uri)
     mydb = myclient[db]
@@ -62,14 +59,18 @@ def connect_mongo(uri, db, tablename):
 
 class MongoAPI:
     def __init__(self, db="db", tablename="tablename"):
-        self.uri = Config.MONGO_URI
+        self.uri = “mongodb://user:password@host:27017/”
         self.myclient = pymongo.MongoClient(self.uri)
         mydb = self.myclient[db]
         self.mycol = mydb[tablename]
 
     # values = {"abr": 1}
-    def query(self, myquery={"name": "somename"}, values=None):
-        return [q for q in self.mycol.find(myquery, values)]
+    def query(self, myquery={"name": "somename"}, values=None, _limit=10):
+    	if _limit:
+            result = [q for q in self.mycol.find(query, values).limit(_limit)]
+        else:
+            result = [q for q in self.mycol.find(query, values)]
+        return result
 
     def save(self, data):
         try:
