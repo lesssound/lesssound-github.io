@@ -134,6 +134,7 @@ footer:
             url: 'https://github.com/hjkl01/'
 # Article related configurations
 article:
+    update_time: true
     # Code highlight settings
     highlight:
         # Code highlight themes
@@ -162,6 +163,8 @@ article:
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Search/
 search:
     type: insight
+    # type: google_cse
+    # cx: d5a3b983fdd28555d
 # Comment plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
 comment:
