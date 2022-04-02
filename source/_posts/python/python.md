@@ -80,12 +80,20 @@ print((now - result).days)
 # csv
 import csv
 
+# dict
 my_dict = {"test": 1, "testing": 2}
 with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
     w = csv.DictWriter(f, my_dict.keys())
     w.writeheader()
     w.writerow(my_dict)
-    # w.writerows(my_dict)
+
+# list
+result = [{"test": 1, "testing": 2}, {"test": 1, "testing": 2}]
+with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
+    w = csv.DictWriter(f, result[0].keys())
+    w.writeheader()
+    w.writerows(result)
+
 
 # xmljson
 import xmljson
