@@ -556,37 +556,57 @@ services:
     restart: unless-stopped      
 ```
 </details>
-  
-<details><summary>文件共享管理 nextcloud</summary>
-```sh
-version: '2'
+
+{% codeblock "网盘 cloudreve" lang:sh >folded %}
+version: '3'
 
 services:
-  db:
-    image: mariadb
-    restart: always
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
-    volumes:
-      - ./data/nextcloud/mysql:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
+    aria2:
+        image: p3terx/aria2-pro
+        logging:
+            options:
+                max-size: 1m
+        ports:
+            - 6800:6800
+            - 6888:6888
+            - 6888:6888/udp
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - RPC_SECRET=${ARIA2_RPC_SECRET}
+        volumes:
+            - ${ARIA2_CONFIG_PATH}:/config
+            - ${TEMP_FOLDER_PATH}:/downloads
+        restart: unless-stopped
 
-  app:
-    image: nextcloud
-    restart: always
-    ports:
-      - 9000:80
-    links:
-      - db
-    volumes:
-      - /data:/var/www/html
-    environment:
-      - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-      - MYSQL_HOST=db
-```
-</details>
+    cloudreve:
+        image: xavierniu/cloudreve
+        ports:
+            - 15212:5212
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+        volumes:
+            - ${CLOUDREVE_UPLOAD_PATH}:/cloudreve/uploads
+            - ${TEMP_FOLDER_PATH}:/downloads
+            - ${CLOUDREVE_CONF_PATH}:/cloudreve/config
+            - ${CLOUDREVE_DB_PATH}:/cloudreve/db
+            - ${CLOUDREVE_AVATAR_PATH}:/cloudreve/avatar
+            
+# .env
+PUID=1000
+PGID=1000
+TZ="Asia/Shanghai"
+
+# > Aria2
+ARIA2_RPC_SECRET=<secret>
+TEMP_FOLDER_PATH=/data/cloudreve/aria2/temp
+ARIA2_CONFIG_PATH=/data/cloudreve/aria2/conf
+
+# > Cloudreve
+CLOUDREVE_UPLOAD_PATH=/data/cloudreve/sharedfolders
+CLOUDREVE_CONF_PATH=/data/cloudreve/cloudreve/config
+CLOUDREVE_DB_PATH=/data/cloudreve/db
+CLOUDREVE_AVATAR_PATH=/data/cloudreve/avatar
+
+{% endcodeblock %}
