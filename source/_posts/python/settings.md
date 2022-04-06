@@ -5,7 +5,7 @@ tags:
   - python
 date: 2021-07-17 11:34:39
 ---
-{% codeblock "code" lang:python %}
+{% codeblock "code" lang:python >folded %}
 # pip install python-dotenv pyyaml loguru
 import os
 import sys
@@ -95,4 +95,44 @@ class SettingsMeta:
 
 settings = SettingsMeta()
 
+{% endcodeblock %}
+
+{% codeblock "settings.py" lang:python %}
+# pip install dynaconf loguru
+import os
+
+from loguru import logger
+from dynaconf import Dynaconf
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__)).rstrip("/common")
+
+log_file_path = os.path.join(BASE_DIR, "logs/stdout.log")
+err_log_file_path = os.path.join(BASE_DIR, "logs/error.log")
+
+logger.add(
+    log_file_path,
+    format="{process} {thread} {time:YYYY.MM.DD HH.mm.ss} {level}.{file}.{name}.{module}.{line} {message}",
+    rotation="100 MB",
+    colorize=True,
+    enqueue=True,
+    backtrace=True,
+    diagnose=True,
+    level="INFO",
+)
+logger.add(
+    err_log_file_path,
+    format="{time:YYYY.MM.DD HH.mm.ss} {level}.{file}.{name}.{module}.{line} {message}",
+    rotation="100 MB",
+    level="ERROR",
+    colorize=True,
+    enqueue=True,
+    backtrace=True,
+    diagnose=True,
+)
+
+
+Config = Dynaconf(settings_files=[".secrets.toml"])
+
+print(Config.__dict__)
+print(Config.redis_ip)
 {% endcodeblock %}
