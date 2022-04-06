@@ -80,14 +80,22 @@ print((now - result).days)
 # csv
 import csv
 
-# dict
+# read
+result = []
+input_file = csv.DictReader(open("result.csv"))
+for row in input_file:
+    result.append(row)
+print(result)
+
+
+# write dict
 my_dict = {"test": 1, "testing": 2}
 with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
     w = csv.DictWriter(f, my_dict.keys())
     w.writeheader()
     w.writerow(my_dict)
 
-# list
+# write list
 result = [{"test": 1, "testing": 2}, {"test": 1, "testing": 2}]
 with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
     w = csv.DictWriter(f, result[0].keys())
