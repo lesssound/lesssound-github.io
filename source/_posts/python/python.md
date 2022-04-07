@@ -76,7 +76,11 @@ print((now - result).days)
 >>> local.humanize(locale='ko-kr')
 '한시간 전'
 
-
+# read big file
+with open("log.txt") as infile:
+    for line in infile:
+        do_something_with(line)
+        
 # csv
 import csv
 
