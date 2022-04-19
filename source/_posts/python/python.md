@@ -94,14 +94,14 @@ print(result)
 
 # write dict
 my_dict = {"test": 1, "testing": 2}
-with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
+with open('mycsvfile.csv', 'w', encoding="utf-8-sig") as f:  # You will need 'wb' mode in Python 2.x
     w = csv.DictWriter(f, my_dict.keys())
     w.writeheader()
     w.writerow(my_dict)
 
 # write list
 result = [{"test": 1, "testing": 2}, {"test": 1, "testing": 2}]
-with open('mycsvfile.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x
+with open('mycsvfile.csv', 'w', encoding="utf-8-sig") as f:  # You will need 'wb' mode in Python 2.x
     w = csv.DictWriter(f, result[0].keys())
     w.writeheader()
     w.writerows(result)
