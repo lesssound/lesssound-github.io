@@ -558,55 +558,48 @@ services:
 </details>
 
 {% codeblock "网盘 cloudreve" lang:sh >folded %}
-version: '3'
+mkdir -vp cloudreve/{uploads,avatar} \
+&& touch cloudreve/conf.ini \
+&& touch cloudreve/cloudreve.db \
+&& mkdir -p aria2/config \
+&& mkdir -p data/aria2 \
+&& chmod -R 777 data/aria2
 
+version: "3.8"
 services:
-    aria2:
-        image: p3terx/aria2-pro
-        logging:
-            options:
-                max-size: 1m
-        ports:
-            - 6800:6800
-            - 6888:6888
-            - 6888:6888/udp
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-            - RPC_SECRET=${ARIA2_RPC_SECRET}
-        volumes:
-            - ${ARIA2_CONFIG_PATH}:/config
-            - ${TEMP_FOLDER_PATH}:/downloads
-        restart: unless-stopped
+  cloudreve:
+    container_name: cloudreve
+    image: cloudreve/cloudreve:latest
+    restart: unless-stopped
+    ports:
+      - "5212:5212"
+    volumes:
+      - ./data/aria2/downloads:/downloads
+      - ./data/cloudreve/uploads:/cloudreve/uploads
+      - ./data/cloudreve/conf.ini:/cloudreve/conf.ini
+      - ./data/cloudreve/cloudreve.db:/cloudreve/cloudreve.db
+      - ./data/cloudreve/avatar:/cloudreve/avatar
+    depends_on:
+      - Aria2-Pro
 
-    cloudreve:
-        image: xavierniu/cloudreve
-        ports:
-            - 15212:5212
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - ${CLOUDREVE_UPLOAD_PATH}:/cloudreve/uploads
-            - ${TEMP_FOLDER_PATH}:/downloads
-            - ${CLOUDREVE_CONF_PATH}:/cloudreve/config
-            - ${CLOUDREVE_DB_PATH}:/cloudreve/db
-            - ${CLOUDREVE_AVATAR_PATH}:/cloudreve/avatar
-            
-# .env
-PUID=1000
-PGID=1000
-TZ="Asia/Shanghai"
-
-# > Aria2
-ARIA2_RPC_SECRET=<secret>
-TEMP_FOLDER_PATH=/data/cloudreve/aria2/temp
-ARIA2_CONFIG_PATH=/data/cloudreve/aria2/conf
-
-# > Cloudreve
-CLOUDREVE_UPLOAD_PATH=/data/cloudreve/sharedfolders
-CLOUDREVE_CONF_PATH=/data/cloudreve/cloudreve/config
-CLOUDREVE_DB_PATH=/data/cloudreve/db
-CLOUDREVE_AVATAR_PATH=/data/cloudreve/avatar
-
+  Aria2-Pro:
+    container_name: aria2-pro
+    image: p3terx/aria2-pro
+    environment:
+      - PUID=65534
+      - PGID=65534
+      - UMASK_SET=022
+      - RPC_SECRET=0b5c74bcc83fc89f29b6f9f4e8a812ef87f69258
+      - RPC_PORT=6800
+      - LISTEN_PORT=6888
+      - DISK_CACHE=64M
+      - IPV6_MODE=true
+      - UPDATE_TRACKERS=true
+      # - CUSTOM_TRACKER_URL=
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data/aria2/config:/config
+      - ./data/aria2/downloads:/downloads
+    restart: unless-stopped
+     
 {% endcodeblock %}
