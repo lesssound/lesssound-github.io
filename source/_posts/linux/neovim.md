@@ -7,7 +7,7 @@ tags:
 date: 2021-08-17 10:49:00
 ---
 {% codeblock "我的neovim配置" lang:sh %}
-https://github.com/hjkl01/nvim-config
+https://github.com/hjkl01/init.vim
 {% endcodeblock %}
 
 ## 插件
@@ -298,4 +298,3 @@ Plug 'github/copilot.vim'
 " :Copilot setup
 
 {% endcodeblock %}
-
