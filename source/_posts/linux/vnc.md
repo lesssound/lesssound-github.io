@@ -3,10 +3,8 @@ categories:
   - linux
 tags:
   - remote desktop
-date: 2021-07-17 11:23:12
+date: 2021-07-17 11:23:00
 ---
-
-
 {% codeblock "服务端安装" lang:sh %}
 
 # ubuntu 
@@ -31,4 +29,16 @@ date: 2021-07-17 11:23:12
 
 {% codeblock "客户端" lang:sh %}
 https://www.realvnc.com/
+{% endcodeblock %}
+
+{% codeblock "错误" lang:sh %}
+# display_server_not_supported
+
+# /etc/gdm3/custom.conf
+[daemon]
+    # Enabling automatic login
+    AutomaticLoginEnable=true
+    AutomaticLogin=$USERNAME
+    
+sudo systemctl restart gdm.service
 {% endcodeblock %}
