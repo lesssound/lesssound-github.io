@@ -1,14 +1,14 @@
----
 title: web_scraper
 categories:
   - python
 tags:
-  - spider
   - python
+  - spider
   - chrome
-date: 2022-03-28 12:09:34
+date: 2022-03-28 12:09:00
 ---
 
+### web scraper
 {% codeblock "install" lang:sh %}
 https://chrome.google.com/webstore/detail/web-scraper-free-web-scra/jnhgnonknehpejjnehehllkliplmbmhn
 {% endcodeblock %}
@@ -20,4 +20,10 @@ https://chrome.google.com/webstore/detail/web-scraper-free-web-scra/jnhgnonknehp
 
 {% codeblock "tianmao example" lang:sh %}
 {"_id":"tianmao","startUrl":["https://list.tmall.com/search_product.htm?spm=a220m.1000858.0.0.219b2a680geXJ0&s=120&q=%CA%D6%BB%FA&sort=s&style=g&from=mallfp..pc_1_searchbutton&active=1&type=pc#J_Filter"],"selectors":[{"delay":0,"id":"sku","multiple":true,"parentSelectors":["_root"],"selector":"#J_ItemList .product","type":"SelectorElement"},{"delay":0,"id":"name","multiple":false,"parentSelectors":["sku"],"regex":"","selector":".productTitle a","type":"SelectorText"},{"delay":0,"id":"price","multiple":false,"parentSelectors":["sku"],"regex":"","selector":".productPrice em","type":"SelectorText"},{"delay":0,"id":"shop","multiple":false,"parentSelectors":["sku"],"regex":"","selector":"a.productShop-name","type":"SelectorText"},{"delay":0,"id":"sales","multiple":false,"parentSelectors":["sku"],"regex":"","selector":"span em","type":"SelectorText"},{"delay":0,"id":"comments","multiple":false,"parentSelectors":["sku"],"regex":"","selector":"span a[data-p]","type":"SelectorText"}]}
+{% endcodeblock %}
+
+### chrome devtools
+
+{% codeblock "获取并复制XPATH的结果" lang:sh %}
+var result = $x('xpath').map(function(i){return i.textContent} ); copy(result);
 {% endcodeblock %}
