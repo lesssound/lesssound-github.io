@@ -6,29 +6,37 @@ tags:
   - docker
 date: 2021-07-10 00:00:00
 ---
-#### install
-```sh
+{% codeblock "install" lang:sh %}
 wget -qO- https://get.docker.com/ | sh
 sudo usermod -aG docker $USER
-```
+{% endcodeblock %}
 
-#### 修改源 
-```sh
-path: /etc/docker/daemon.json
+{% codeblock "修改源 " lang:sh %}
+# path: /etc/docker/daemon.json
 {
   "registry-mirrors": ["http://hub-mirror.c.163.com"]
 }
-```
-#### lazydocker
-```sh
+{% endcodeblock %}
+
+{% codeblock "tools" lang:sh %}
+# ctop
+# lazydocker
 docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/.config/jesseduffield/lazydocker lazyteam/lazydocker
-```
+{% endcodeblock %}
 
 #### docker-compose.yml 
 <details><summary> ddns </summary>
 ```sh
 version: '3.1'
 services:
+  ddns_go:
+    image: jeessy/ddns-go
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - ./data/ddns:/root
+  # port: 9876
+  
   ddns:
     image: sanjusss/aliyun-ddns
     restart: always
