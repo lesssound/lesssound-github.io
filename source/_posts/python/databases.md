@@ -63,6 +63,106 @@ session.execute(delete_obj)
 session.commit()
 {% endcodeblock %}
 
+{% codeblock "code" lang:sh >folded %}
+#  from .base_model import Base
+from sqlalchemy.orm import sessionmaker, scoped_session
+from contextlib import contextmanager
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, TIMESTAMP, text, JSON
+
+from sqlalchemy import create_engine
+
+
+Base = declarative_base()
+
+
+class PyOrmModel(Base):
+    __tablename__ = "py_orm"
+
+    id = Column(Integer, autoincrement=True, primary_key=True, comment="唯一id")
+    name = Column(String(255), nullable=False, default="", comment="名称")
+    attr = Column(JSON, nullable=False, comment="属性")
+    ct = Column(TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"), comment="创建时间")
+    ut = Column(TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"), comment="更新时间")
+
+    @staticmethod
+    def fields():
+        return ["id", "name", "attr"]
+
+    @staticmethod
+    def to_json(model):
+        fields = PyOrmModel.fields()
+        json_data = {}
+        for field in fields:
+            json_data[field] = model.__getattribute__(field)
+        return json_data
+
+    @staticmethod
+    def from_json(data: dict):
+        fields = PyOrmModel.fields()
+
+        model = PyOrmModel()
+        for field in fields:
+            if field in data:
+                model.__setattr__(field, data[field])
+        return model
+
+db_url = "postgresql://user:password@ip:5432/db"
+engine = create_engine(db_url, echo=False)
+Base.metadata.create_all(engine)
+
+
+def _get_session():
+    """获取session"""
+    return scoped_session(sessionmaker(bind=engine, expire_on_commit=False))()
+
+
+# 在这里对session进行统一管理，包括获取，提交，回滚和关闭
+@contextmanager
+def db_session(commit=True):
+    session = _get_session()
+    try:
+        yield session
+        if commit:
+            session.commit()
+    except Exception as e:
+        session.rollback()
+        raise e
+    finally:
+        if session:
+            session.close()
+
+
+class PyOrmModelOp:
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def save_data(data: dict):
+        with db_session() as session:
+            model = PyOrmModel.from_json(data)
+            session.add(model)
+
+    # 查询操作，不需要commit
+    @staticmethod
+    def query_data(pid: int):
+        data_list = []
+        with db_session(commit=False) as session:
+            data = session.query(PyOrmModel).filter(PyOrmModel.id == pid)
+            for d in data:
+                data_list.append(PyOrmModel.to_json(d))
+
+            return data_list
+
+
+for i in range(9):
+    #  PyOrmModelOp.save_data({"id": i, "name": "test", "attr": {}})
+    PyOrmModelOp.save_data({"name": "test", "attr": {}})
+    result = PyOrmModelOp.query_data(i)
+    print(result)
+
+{% endcodeblock %}
+
 {% codeblock "databases" lang:sh %}
 # pip install 'databases[aiomysql]' aiomysq
 import asyncio
