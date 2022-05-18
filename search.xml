@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>nginx</title>
+    <url>/2021/09/02/linux/nginx/</url>
+    <content><![CDATA[<h2 id="nginx-config"><a href="#nginx-config" class="headerlink" title="nginx config"></a>nginx config</h2><h3 id="推荐在线配置"><a href="#推荐在线配置" class="headerlink" title="推荐在线配置"></a>推荐在线配置</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">https://digitalocean.github.io/nginxconfig.io/?global.app.lang=zhCN</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line">    server_name blog.viewer.pub;</span><br><span class="line">    root /html/github;</span><br><span class="line">    location / &#123;</span><br><span class="line">       index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="转发端口"><a href="#转发端口" class="headerlink" title="转发端口"></a>转发端口</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name dj.viewer.pub;</span><br><span class="line"></span><br><span class="line">    root /html/www/;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8000/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name blog.viewer.pub;</span><br><span class="line">    rewrite ^(.*)$ https://blog.viewer.pub; <span class="comment">#将所有HTTP请求通过rewrite指令重定向到HTTPS。</span></span><br><span class="line"><span class="comment"># &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="https证书"><a href="#https证书" class="headerlink" title="https证书"></a>https证书</h3><h4 id="安装certbot"><a href="#安装certbot" class="headerlink" title="安装certbot"></a>安装certbot</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yay -S --noconfirm certbot</span><br></pre></td></tr></table></figure>
+
+<h4 id="静态文件-1"><a href="#静态文件-1" class="headerlink" title="静态文件"></a>静态文件</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo certbot certonly -d domain --webroot -w /html/filepath/</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name blog.viewer.pub;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/blog.viewer.pub/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/blog.viewer.pub/privkey.pem;</span><br><span class="line">    ssl_trusted_certificate /etc/letsencrypt/live/blog.viewer.pub/chain.pem;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; </span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root /html/github;  <span class="comment">#站点目录。</span></span><br><span class="line">        index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="转发端口-1"><a href="#转发端口-1" class="headerlink" title="转发端口"></a>转发端口</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo certbot certonly -d domain</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name nocodb.viewer.pub;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/nocodb.viewer.pub/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/nocodb.viewer.pub/privkey.pem;</span><br><span class="line">    ssl_trusted_certificate /etc/letsencrypt/live/nocodb.viewer.pub/chain.pem;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; </span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8080/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="转发mongo端口-TCP"><a href="#转发mongo端口-TCP" class="headerlink" title="转发mongo端口(TCP)"></a>转发mongo端口(TCP)</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">stream &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen  &lt;your incoming Mongo TCP port&gt;;</span><br><span class="line">        proxy_connect_timeout 1s;</span><br><span class="line">        proxy_timeout 3s;</span><br><span class="line">        proxy_pass    stream_mongo_backend;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    upstream stream_mongo_backend &#123;</span><br><span class="line">      server &lt;localhost:your <span class="built_in">local</span> Mongo TCP port&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>databases</title>
     <url>/2021/07/17/python/databases/</url>
     <content><![CDATA[<h3 id="sqlalchemy"><a href="#sqlalchemy" class="headerlink" title="sqlalchemy"></a>sqlalchemy</h3><figure class="highlight sh"><figcaption><span>安装及导出model</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment"># pip install psycopg2-binary</span></span><br><span class="line"><span class="comment"># sqlacodegen postgres://user:passwd@host:ip/database --outfile model.py</span></span><br></pre></td></tr></table></figure>
@@ -470,34 +498,6 @@
       </categories>
       <tags>
         <tag>yarn npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nginx</title>
-    <url>/2021/09/02/linux/nginx/</url>
-    <content><![CDATA[<h2 id="nginx-config"><a href="#nginx-config" class="headerlink" title="nginx config"></a>nginx config</h2><h3 id="推荐在线配置"><a href="#推荐在线配置" class="headerlink" title="推荐在线配置"></a>推荐在线配置</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">https://www.digitalocean.com/community</span><br></pre></td></tr></table></figure>
-
-<h3 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line">    server_name blog.viewer.pub;</span><br><span class="line">    root /html/github;</span><br><span class="line">    location / &#123;</span><br><span class="line">       index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="转发端口"><a href="#转发端口" class="headerlink" title="转发端口"></a>转发端口</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name dj.viewer.pub;</span><br><span class="line"></span><br><span class="line">    root /html/www/;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8000/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name blog.viewer.pub;</span><br><span class="line">    rewrite ^(.*)$ https://blog.viewer.pub; <span class="comment">#将所有HTTP请求通过rewrite指令重定向到HTTPS。</span></span><br><span class="line"><span class="comment"># &#125;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="https证书"><a href="#https证书" class="headerlink" title="https证书"></a>https证书</h3><h4 id="安装certbot"><a href="#安装certbot" class="headerlink" title="安装certbot"></a>安装certbot</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yay -S --noconfirm certbot</span><br></pre></td></tr></table></figure>
-
-<h4 id="静态文件-1"><a href="#静态文件-1" class="headerlink" title="静态文件"></a>静态文件</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo certbot certonly -d domain --webroot -w /html/filepath/</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name blog.viewer.pub;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/blog.viewer.pub/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/blog.viewer.pub/privkey.pem;</span><br><span class="line">    ssl_trusted_certificate /etc/letsencrypt/live/blog.viewer.pub/chain.pem;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; </span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root /html/github;  <span class="comment">#站点目录。</span></span><br><span class="line">        index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="转发端口-1"><a href="#转发端口-1" class="headerlink" title="转发端口"></a>转发端口</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo certbot certonly -d domain</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name nocodb.viewer.pub;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/nocodb.viewer.pub/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/nocodb.viewer.pub/privkey.pem;</span><br><span class="line">    ssl_trusted_certificate /etc/letsencrypt/live/nocodb.viewer.pub/chain.pem;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; </span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8080/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="转发mongo端口-TCP"><a href="#转发mongo端口-TCP" class="headerlink" title="转发mongo端口(TCP)"></a>转发mongo端口(TCP)</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">stream &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen  &lt;your incoming Mongo TCP port&gt;;</span><br><span class="line">        proxy_connect_timeout 1s;</span><br><span class="line">        proxy_timeout 3s;</span><br><span class="line">        proxy_pass    stream_mongo_backend;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    upstream stream_mongo_backend &#123;</span><br><span class="line">      server &lt;localhost:your <span class="built_in">local</span> Mongo TCP port&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
