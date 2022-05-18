@@ -9,7 +9,7 @@ date: 2021-09-02 11:48:21
 
 ### 推荐在线配置
 ```sh
-https://www.digitalocean.com/community
+https://digitalocean.github.io/nginxconfig.io/?global.app.lang=zhCN
 ```
 
 ### 静态文件
